@@ -87,23 +87,6 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
                    begin killing background processes.
                 */
                 break;
-            case ComponentCallbacks2.TRIM_MEMORY_BACKGROUND:
-            case ComponentCallbacks2.TRIM_MEMORY_MODERATE:
-            case ComponentCallbacks2.TRIM_MEMORY_COMPLETE:
-                /*
-                   Release as much memory as the process can.
-
-                   The app is on the LRU list and the system is running low on memory.
-                   The event raised indicates where the app sits within the LRU list.
-                   If the event is TRIM_MEMORY_COMPLETE, the process will be one of
-                   the first to be terminated.
-                */
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.low_memory)
-                        .setMessage(R.string.low_memory_message)
-                        .create()
-                        .show();
-                break;
             default:
                 /*
                   Release any non-critical data structures.
