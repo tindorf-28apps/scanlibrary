@@ -19,7 +19,7 @@
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/ic_rotac"
             android:singleLine="true"
-            android:text="Left"
+            android:text="Links"
             android:textColor="@android:color/white" />
 
         <Button
@@ -30,7 +30,7 @@
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/ic_rotc"
             android:singleLine="true"
-            android:text="Right"
+            android:text="Rechts"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
