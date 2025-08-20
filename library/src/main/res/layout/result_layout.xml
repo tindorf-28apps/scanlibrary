@@ -5,11 +5,13 @@
     android:background="@android:color/black"
     android:orientation="vertical">
 
+    <!-- Top Bar mit zwei Buttons -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/rotanticButton"
@@ -35,21 +37,11 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/doneButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bottom_background_color"
-        android:orientation="horizontal"
-        android:padding="@dimen/bottom_bar_padding"
-        android:text="@string/done" />
-
-
+    <!-- Inhalt (ImageView in der Mitte) -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/doneButton"
+        android:layout_above="@id/bottomBar"
         android:layout_below="@id/topBar"
         android:layout_gravity="center"
         android:layout_margin="@dimen/scanPadding">
@@ -62,5 +54,40 @@
             android:layout_margin="@dimen/scanPadding" />
     </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/bottom_background_color"
+            android:text="Speichern"
+            android:padding="@dimen/bottom_bar_padding"
+            android:textColor="@android:color/white" />
+
+        <!-- Trennlinie -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/doneAndNewButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/bottom_background_color"
+            android:text="Speichern + Neues Bild
+"
+            android:padding="@dimen/bottom_bar_padding"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
 </RelativeLayout>

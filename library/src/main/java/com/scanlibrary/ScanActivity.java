@@ -1,13 +1,11 @@
 package com.scanlibrary;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.ComponentCallbacks2;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Created by jhansi on 28/03/15.

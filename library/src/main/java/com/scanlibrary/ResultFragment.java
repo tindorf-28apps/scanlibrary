@@ -25,6 +25,7 @@ public class ResultFragment extends Fragment {
     private View view;
     private ImageView scannedImageView;
     private Button doneButton;
+    private Button doneAndNewButton;
     private Bitmap original;
     private Button rotanticButton;
     private Button rotcButton;
@@ -56,6 +57,9 @@ public class ResultFragment extends Fragment {
         setScannedImage(bitmap);
         doneButton = (Button) view.findViewById(R.id.doneButton);
         doneButton.setOnClickListener(new DoneButtonClickListener());
+
+        doneAndNewButton = (Button) view.findViewById(R.id.doneAndNewButton);
+        doneAndNewButton.setOnClickListener(new DoneAndNewButtonClickListener());
     }
 
     private Bitmap getBitmap() {
@@ -104,6 +108,47 @@ public class ResultFragment extends Fragment {
                                 getActivity().finish();
                             }
                         });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    private class DoneAndNewButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            showProgressDialog(getResources().getString(R.string.loading));
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Intent data = new Intent();
+                        Bitmap bitmap = transformed;
+                        if (bitmap == null) {
+                            bitmap = original;
+                        }
+                        Uri uri = Utils.getUri(getActivity(), bitmap);
+                        data.putExtra(ScanConstants.SCANNED_RESULT, uri);
+                        getActivity().setResult(Activity.RESULT_OK, data);
+                        original.recycle();
+                        System.gc();
+
+                        // 4. Zurück zum PickImageFragment für neuen Scan
+                        PickImageFragment fragment = new PickImageFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(ScanConstants.OPEN_INTENT_PREFERENCE,
+                                getActivity().getIntent().getIntExtra(ScanConstants.OPEN_INTENT_PREFERENCE, 0));
+                        bundle.putInt("quality", getActivity().getIntent().getIntExtra("quality", 1));
+                        bundle.putString("filePath", getActivity().getIntent().getStringExtra("filePath"));
+                        fragment.setArguments(bundle);
+
+                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.content, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -198,12 +243,14 @@ public class ResultFragment extends Fragment {
 
     protected synchronized void disableButtons() {
         doneButton.setEnabled(false);
+        doneAndNewButton.setEnabled(false);
         rotanticButton.setEnabled(false);
         rotcButton.setEnabled(false);
     }
 
     protected synchronized void enableButtons() {
         doneButton.setEnabled(true);
+        doneAndNewButton.setEnabled(true);
         rotanticButton.setEnabled(true);
         rotcButton.setEnabled(true);
     }
