@@ -135,20 +135,27 @@ public class ResultFragment extends Fragment {
                         original.recycle();
                         System.gc();
 
-                        // 4. Zurück zum PickImageFragment für neuen Scan
-                        PickImageFragment fragment = new PickImageFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putInt(ScanConstants.OPEN_INTENT_PREFERENCE,
-                                getActivity().getIntent().getIntExtra(ScanConstants.OPEN_INTENT_PREFERENCE, 0));
-                        bundle.putInt("quality", getActivity().getIntent().getIntExtra("quality", 1));
-                        bundle.putString("filePath", getActivity().getIntent().getStringExtra("filePath"));
-                        fragment.setArguments(bundle);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dismissDialog();
 
-                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content, fragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                                // Zurück zum PickImageFragment für neuen Scan
+                                PickImageFragment fragment = new PickImageFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putInt(ScanConstants.OPEN_INTENT_PREFERENCE,
+                                        getActivity().getIntent().getIntExtra(ScanConstants.OPEN_INTENT_PREFERENCE, 0));
+                                bundle.putInt("quality", getActivity().getIntent().getIntExtra("quality", 1));
+                                bundle.putString("filePath", getActivity().getIntent().getStringExtra("filePath"));
+                                fragment.setArguments(bundle);
+
+                                android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.content, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
