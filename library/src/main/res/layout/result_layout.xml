@@ -59,17 +59,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <Button
             android:id="@+id/doneButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/bottom_background_color"
             android:text="Speichern"
             android:padding="@dimen/bottom_bar_padding"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:gravity="center" />
 
         <!-- Trennlinie -->
         <View
@@ -80,13 +82,13 @@
         <Button
             android:id="@+id/doneAndNewButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/bottom_background_color"
-            android:text="Speichern + Neues Bild
-"
+            android:text="Speichern + Neues Bild"
             android:padding="@dimen/bottom_bar_padding"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:gravity="center" />
 
     </LinearLayout>
 
