@@ -6,17 +6,28 @@ import android.content.ComponentCallbacks2;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import java.util.ArrayList;
 
 /**
  * Created by jhansi on 28/03/15.
  */
 public class ScanActivity extends Activity implements IScanner, ComponentCallbacks2 {
 
+    private ArrayList<Uri> scannedImages = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan_layout);
         init();
+    }
+
+    public void addScannedImage(Uri uri) {
+        scannedImages.add(uri);
+    }
+
+    public ArrayList<Uri> getScannedImages() {
+        return scannedImages;
     }
 
     private void init() {

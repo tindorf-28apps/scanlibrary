@@ -15,6 +15,7 @@ public class ScanConstants {
     public final static int OPEN_MEDIA = 5;
     public final static int LOAD_FROM_URL = 6;
     public final static String SCANNED_RESULT = "scannedResult";
+    public final static String SCANNED_RESULT_MULTIPLE = "scannedResults";
     public final static String IMAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/scanSample";
 

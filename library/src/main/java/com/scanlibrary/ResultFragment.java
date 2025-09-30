@@ -91,13 +91,27 @@ public class ResultFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        Intent data = new Intent();
                         Bitmap bitmap = transformed;
                         if (bitmap == null) {
                             bitmap = original;
                         }
                         Uri uri = Utils.getUri(getActivity(), bitmap);
-                        data.putExtra(ScanConstants.SCANNED_RESULT, uri);
+
+                        // Add current image to collection
+                        ((ScanActivity) getActivity()).addScannedImage(uri);
+
+                        // Get all collected images
+                        java.util.ArrayList<Uri> allImages = ((ScanActivity) getActivity()).getScannedImages();
+
+                        Intent data = new Intent();
+                        if (allImages.size() == 1) {
+                            // Single image - use old format for backwards compatibility
+                            data.putExtra(ScanConstants.SCANNED_RESULT, allImages.get(0));
+                        } else {
+                            // Multiple images
+                            data.putParcelableArrayListExtra(ScanConstants.SCANNED_RESULT_MULTIPLE, allImages);
+                        }
+
                         getActivity().setResult(Activity.RESULT_OK, data);
                         original.recycle();
                         System.gc();
@@ -124,14 +138,15 @@ public class ResultFragment extends Fragment {
                 @Override
                 public void run() {
                     try {
-                        Intent data = new Intent();
                         Bitmap bitmap = transformed;
                         if (bitmap == null) {
                             bitmap = original;
                         }
                         Uri uri = Utils.getUri(getActivity(), bitmap);
-                        data.putExtra(ScanConstants.SCANNED_RESULT, uri);
-                        getActivity().setResult(Activity.RESULT_OK, data);
+
+                        // Add current image to collection
+                        ((ScanActivity) getActivity()).addScannedImage(uri);
+
                         original.recycle();
                         System.gc();
 
